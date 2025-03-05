@@ -13,6 +13,7 @@ ftp_server
 geofence
 gimbal
 gripper
+hil_gps
 info
 log_files
 log_streaming

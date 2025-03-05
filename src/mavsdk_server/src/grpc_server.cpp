@@ -22,6 +22,7 @@ int GrpcServer::run()
 
     builder.RegisterService(&_core);
 
+
 #ifdef ACTION_ENABLED
     builder.RegisterService(&_action_service);
 #endif
@@ -80,6 +81,10 @@ int GrpcServer::run()
 
 #ifdef GRIPPER_ENABLED
     builder.RegisterService(&_gripper_service);
+#endif
+
+#ifdef HIL_GPS_ENABLED
+    builder.RegisterService(&_hil_gps_service);
 #endif
 
 #ifdef INFO_ENABLED
@@ -158,6 +163,7 @@ int GrpcServer::run()
     builder.RegisterService(&_winch_service);
 #endif
 
+
 #ifdef ENABLE_PROTO_REFLECTION
     grpc::reflection::InitProtoReflectionServerBuilderPlugin();
 #endif
@@ -188,6 +194,7 @@ void GrpcServer::stop()
 {
     if (_server != nullptr) {
         _core.stop();
+
 
 #ifdef ACTION_ENABLED
         _action_service.stop();
@@ -247,6 +254,10 @@ void GrpcServer::stop()
 
 #ifdef GRIPPER_ENABLED
         _gripper_service.stop();
+#endif
+
+#ifdef HIL_GPS_ENABLED
+        _hil_gps_service.stop();
 #endif
 
 #ifdef INFO_ENABLED
