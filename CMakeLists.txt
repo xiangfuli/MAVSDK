@@ -1,12 +1,5 @@
 cmake_minimum_required(VERSION 3.13)
 
-set(CMAKE_PREFIX_PATH 
-                            ${CMAKE_SOURCE_DIR}/cfg/)
-
-find_package(toolchains REQUIRED)
-
-include_directories("third_party/install/include")
-
 option(HUNTER_ENABLED "Enable Hunter package manager support" OFF)
 option(SUPERBUILD "Build dependencies" ON)
 option(BUILD_MAVSDK_SERVER "Build mavsdk_server" OFF)
