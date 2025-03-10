@@ -7,20 +7,7 @@ project(offboard)
 
 message (STATUS "${PROJECT_SOURCE_DIR}")
 
-list(APPEND CMAKE_PREFIX_PATH "${PROJECT_SOURCE_DIR}/../../build/default/install/lib/cmake")
-list(APPEND CMAKE_PREFIX_PATH "${PROJECT_SOURCE_DIR}/../../build/default/third_party/install/lib/cmake")
-list(APPEND CMAKE_PREFIX_PATH "${PROJECT_SOURCE_DIR}/../../build/default/third_party/install/lib64/cmake")
-
-set(OPENSSL_ROOT_DIR "${PROJECT_SOURCE_DIR}/../../build/default/third_party/install/lib64")
-set(OPENSSL_INCLUDE_DIR "${PROJECT_SOURCE_DIR}/../../build/default/third_party/install/include/openssl")
-
-set(CURL_LIBRARY "${PROJECT_SOURCE_DIR}/../../build/default/third_party/install/lib/libcurl.a")
-set(CURL_INCLUDE_DIR "${PROJECT_SOURCE_DIR}/../../build/default/third_party/install/include/curl")
-
-find_package(Threads REQUIRED)
-find_package(CURL REQUIRED)
-find_package(liblzma REQUIRED)
-find_package(MAVSDK REQUIRED)
+include(mavsdk.cmake)
 
 add_executable(offboard
     offboard.cpp
