@@ -3,6 +3,12 @@ cmake_minimum_required(VERSION 3.1)
 project(external-curl)
 include(ExternalProject)
 
+if(CMAKE_SYSTEM_PROCESSOR MATCHES "x86_64")  
+  set(OPENSSL_ROOT_DIR "${CMAKE_CURRENT_LIST_DIR}/../../build/default/third_party/install/lib64")
+else()
+  set(OPENSSL_ROOT_DIR "${CMAKE_CURRENT_LIST_DIR}/../../build/default/third_party/install/lib")
+endif()
+
 list(APPEND CMAKE_ARGS
     "-DCMAKE_PREFIX_PATH:PATH=${CMAKE_PREFIX_PATH}"
     "-DCMAKE_INSTALL_PREFIX:PATH=${CMAKE_INSTALL_PREFIX}"
@@ -18,9 +24,9 @@ list(APPEND CMAKE_ARGS
     "-DHTTP_ONLY=ON"
     "-DHAVE_POSIX_STRERROR_R=1"
     "-DBUILD_TESTING=OFF"
-    "-DOPENSSL_ROOT_DIR=${CMAKE_INSTALL_PREFIX}/lib64"
-    "-DOPENSSL_SSL_LIBRARY=${CMAKE_INSTALL_PREFIX}/lib64/libssl.a"
-    "-DOPENSSL_CRYPTO_LIBRARY=${CMAKE_INSTALL_PREFIX}/lib64/libcrypto.a"
+    "-DOPENSSL_ROOT_DIR=${OPENSSL_ROOT_DIR}"
+    "-DOPENSSL_SSL_LIBRARY=${OPENSSL_ROOT_DIR}/libssl.a"
+    "-DOPENSSL_CRYPTO_LIBRARY=${OPENSSL_ROOT_DIR}/libcrypto.a"
     )
 
 if(IOS)

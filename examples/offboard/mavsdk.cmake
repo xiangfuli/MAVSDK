@@ -2,7 +2,12 @@ list(APPEND CMAKE_PREFIX_PATH "${CMAKE_CURRENT_LIST_DIR}/../../build/default/ins
 list(APPEND CMAKE_PREFIX_PATH "${CMAKE_CURRENT_LIST_DIR}/../../build/default/third_party/install/lib/cmake")
 list(APPEND CMAKE_PREFIX_PATH "${CMAKE_CURRENT_LIST_DIR}/../../build/default/third_party/install/lib64/cmake")
 
-set(OPENSSL_ROOT_DIR "${CMAKE_CURRENT_LIST_DIR}/../../build/default/third_party/install/lib64")
+if(CMAKE_SYSTEM_PROCESSOR MATCHES "x86_64")  
+  set(OPENSSL_ROOT_DIR "${CMAKE_CURRENT_LIST_DIR}/../../build/default/third_party/install/lib64")
+else()
+  set(OPENSSL_ROOT_DIR "${CMAKE_CURRENT_LIST_DIR}/../../build/default/third_party/install/lib")
+endif()
+
 set(OPENSSL_INCLUDE_DIR "${CMAKE_CURRENT_LIST_DIR}/../../build/default/third_party/install/include/openssl")
 
 set(CURL_LIBRARY "${CMAKE_CURRENT_LIST_DIR}/../../build/default/third_party/install/lib/libcurl.a")
