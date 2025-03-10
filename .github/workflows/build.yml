@@ -42,4 +42,4 @@ jobs:
 
       - name: Run Build Script in arm64 Container
         run: |
-          docker run --rm --platform linux/arm64 -v ${{ github.workspace }}:/workspace -w /workspace ubuntu:20.04 /bin/bash -c "apt update && DEBIAN_FRONTEND=noninteractive apt install -y build-essential cmake git && chmod +x build.sh test.sh && ./build.sh && ./test.sh"
+          docker run --rm --platform linux/arm64 -v ${{ github.workspace }}:/workspace -w /workspace ubuntu:20.04 /bin/bash -c "apt update && DEBIAN_FRONTEND=noninteractive apt install -y build-essential cmake git python3 && chmod +x build.sh test.sh && ./build.sh && ./test.sh"
