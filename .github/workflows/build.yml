@@ -1,0 +1,42 @@
+name: Build Script for branch v 2.14.1
+
+on:
+  push:
+    branches:
+      - 2.14.1
+  pull_request:
+    branches:
+      - 2.14.1
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-20.04, ubuntu-22.04]
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set Execute Permissions
+        run: chmod +x build.sh
+
+      - name: Run Build Script
+        run: ./build.sh
+  
+  build-arm64:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v3
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Run Build Script in arm64 Container
+        run: |
+          docker run --rm --platform linux/arm64 -v ${{ github.workspace }}:/workspace -w /workspace ubuntu:20.04 /bin/bash -c "apt update && apt install -y build-essential && chmod +x build.sh && ./build.sh"
